@@ -1,12 +1,12 @@
 ################################################################################
-# Project: tommyvange/printer-driver-management-scripts
+# Repository: tommyvange/Printer-Driver-Management-Scripts
 # File: install.ps1
 # Developer: Tommy Vange Rød
 # License: GPL 3.0 License
 #
-# This file is part of "Printer Driver Management Scripts".
+# This file is part of "Printer-Driver-Management-Scripts".
 #
-# "Printer Driver Management Scripts" is free software: you can redistribute it and/or modify
+# "Printer-Driver-Management-Scripts" is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -23,7 +23,7 @@
 param (
     [string]$DriverPath,
     [string]$DriverName = "Canon Generic Plus PCL6",
-    [bool]$Logging = $false
+    [switch]$Logging
 )
 
 # Path to configuration file

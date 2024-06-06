@@ -34,13 +34,13 @@ The install script adds a printer driver using the specified parameters.
 To run the add shortcut script, use the following command:
 
 ``` powershell
-.\install.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging $true]
+.\install.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging]
 ```
 
 ### Parameters
 -   `DriverPath`: The path to the printer driver `.INF` file.
 -   `DriverName`: The name of the printer driver.
--   [Optional] `Logging`: Enables transcript logging if set to `true`.
+-   [Optional] `Logging`: Enables transcript logging if set.
 
 ### Fallback to Configuration File
 If a parameter is not provided via the command line, the script will attempt to read it from the `config.json` file. If the parameter is still not available, the script will fail and provide an error message.
@@ -49,7 +49,7 @@ If a parameter is not provided via the command line, the script will attempt to 
 To specify values directly via the command:
 
 ``` powershell
-.\install.ps1 -DriverPath "./driver/CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" [-Logging $true]
+.\install.ps1 -DriverPath "./driver/CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" [-Logging]
 ```
 
 To use the default values from the configuration file:
@@ -71,13 +71,13 @@ The uninstall script removes a specified printer driver using the specified para
 To run the remove shortcut script, use the following command:
 
 ``` powershell
-.\uninstall.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging $true]
+.\uninstall.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging]
 ```
 
 ### Parameters
 -   `DriverPath`: The path to the printer driver `.INF` file.
 -   `DriverName`: The name of the printer driver.
--   [Optional] `Logging`: Enables transcript logging if set to `true`.
+-   [Optional] `Logging`: Enables transcript logging if set.
 
 ### Fallback to Configuration File
 If a parameter is not provided via the command line, the script will attempt to read it from the `config.json` file. If the parameter is still not available, the script will fail and provide an error message.
@@ -86,7 +86,7 @@ If a parameter is not provided via the command line, the script will attempt to 
 To specify values directly via the command:
 
 ``` powershell
-.\uninstall.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" [-Logging $true]
+.\uninstall.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" [-Logging]
 ```
 
 To use the default values from the configuration file:
@@ -113,7 +113,7 @@ To run the check shortcut script, use the following command:
 
 ### Parameters
 -   `DriverName`: The name of the printer driver to check.
--   [Optional] `Logging`: Enables transcript logging if set to `true`.
+-   [Optional] `Logging`: Enables transcript logging if set.
 
 ### Fallback to Configuration File
 If a parameter is not provided via the command line, the script will attempt to read it from the `config.json` file. If the parameter is still not available, the script will fail and provide an error message.
@@ -121,7 +121,7 @@ If a parameter is not provided via the command line, the script will attempt to 
 ### Example
 To specify values directly via the command:
 ``` powershell
-.\check.ps1 -DriverName "Canon Generic Plus" [-Logging $true]
+.\check.ps1 -DriverName "Canon Generic Plus" [-Logging]
 ``` 
 
 To use the default values from the configuration file:
@@ -147,7 +147,7 @@ When logging is enabled, the scripts will start a PowerShell transcript at the b
 
 ### Enabling Logging
 
-Logging can be enabled by setting the `-Logging` parameter to `true` when running the script, or by setting the `Logging` property to `true` in the `config.json` file.
+Logging can be enabled by setting the `-Logging` parameter when running the script, or by setting the `Logging` property to `true` in the `config.json` file.
 
 ### Log File Location
 
@@ -169,7 +169,7 @@ Example log file paths:
 To enable logging via the command line:
 
 ``` powershell
-.\install.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" -Logging $true
+.\install.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" -Logging
 ```
 
 Or by setting the `Logging` property in the configuration file:
