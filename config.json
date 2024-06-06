@@ -1,0 +1,5 @@
+{
+    "DriverPath": "./driver/etc/CNP60MA64.INF",
+    "DriverName": "Canon Generic Plus PCL6",
+    "Logging": false
+}
