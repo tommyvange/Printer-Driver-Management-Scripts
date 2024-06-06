@@ -1,8 +1,8 @@
-
-
 # Printer Driver Management Scripts
 
 These scripts are designed to install and uninstall printer drivers on Windows machines. They can read parameters from the command line, a configuration file (`config.json`), or use default values. If any required parameter is missing and cannot be resolved, the scripts will fail with an appropriate error message.
+
+This repository is licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
 
 Developed by **TommyTheBeast**.
 
@@ -191,4 +191,31 @@ All scripts include error handling to provide clear messages when parameters are
 ## Troubleshooting
 
 If you encounter any issues, ensure that all parameters are correctly specified and that the printer driver is available at the provided path. Check the error messages provided by the scripts for further details on what might have gone wrong.
+
+# GNU General Public License v3.0 (GPLv3)
+
+The  **GNU General Public License v3.0 (GPLv3)**  is a free, copyleft license for software and other creative works. It ensures your freedom to share, modify, and distribute all versions of a program, keeping it free software for everyone.
+
+Full license can be read [here](LICENSE) or at [gnu.org](https://www.gnu.org/licenses/gpl-3.0.en.html#license-text).
+
+## Key Points:
+
+1.  **Freedom to Share and Change:**
+    
+    -   You can distribute copies of GPLv3-licensed software.
+    -   Access the source code.
+    -   Modify the software.
+    -   Create new free programs using parts of it.
+2.  **Responsibilities:**
+    
+    -   If you distribute GPLv3 software, pass on the same freedoms to recipients.
+    -   Provide the source code.
+    -   Make recipients aware of their rights.
+3.  **No Warranty:**
+    
+    -   No warranty for this free software.
+    -   Developers protect your rights through copyright and this license.
+4.  **Marking Modifications:**
+    
+    -   Clearly mark modified versions to avoid attributing problems to previous authors.
 
