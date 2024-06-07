@@ -25,7 +25,9 @@ param (
     [switch]$Logging
 )
 
-# Manually fill these variables if using ex. Intune (Intune does not support CLI args or config files with check scripts)
+# Manually fill these variables if using environments like Intune 
+# (Intune does not support CLI arguments or configuration files for check scripts)
+#
 # $ManualDriverName = "Canon Generic Plus PCL6"
 # $ManualLogging = $false  # Set to $true to enable logging
 
