@@ -21,9 +21,13 @@
 ################################################################################
 
 param (
-    [string]$DriverName = "Canon Generic Plus PCL6",
+    [string]$DriverName,
     [switch]$Logging
 )
+
+# Manually fill these variables if using ex. Intune (Intune does not support CLI args or config files with check scripts)
+# $ManualDriverName = "Canon Generic Plus PCL6"
+# $ManualLogging = $false  # Set to $true to enable logging
 
 # Path to configuration file
 $configFilePath = "$PSScriptRoot\config.json"
@@ -35,6 +39,10 @@ $config = $null
 if (Test-Path $configFilePath) {
     $config = Get-Content -Path $configFilePath | ConvertFrom-Json
 }
+
+# Prioritize manually set variables
+if ($ManualDriverName) { $DriverName = $ManualDriverName }
+if ($ManualLogging) { $Logging = $ManualLogging }
 
 # Use parameters from the command line or fall back to config file values
 if (-not $DriverName) { $DriverName = $config.DriverName }
