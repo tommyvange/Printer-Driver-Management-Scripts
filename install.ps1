@@ -22,7 +22,7 @@
 
 param (
     [string]$DriverPath,
-    [string]$DriverName = "Canon Generic Plus PCL6",
+    [string]$DriverName,
     [switch]$Logging
 )
 
