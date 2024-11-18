@@ -57,6 +57,43 @@ if ($Logging) {
     Start-Transcript -Path $logFilePath
 }
 
+# Pre-authorizing the driver certificate
+if ($config.CertificateManagementInstall -eq $true) {
+    Write-Output "Certificate management install is enabled. Proceeding with certificate pre-authorization."
+
+    # Locate the driver catalog file (.cat)
+    $driverInfPath = $config.DriverPath
+    $driverCatFile = Get-ChildItem -Path (Split-Path -Parent $driverInfPath) -Filter "*.cat" | Select-Object -First 1
+
+    if ($null -ne $driverCatFile) {
+        Write-Output "Found catalog file: $($driverCatFile.FullName). Extracting certificate."
+
+        # Extract the certificate from the catalog file
+        $signature = Get-AuthenticodeSignature -FilePath $driverCatFile.FullName
+
+        if ($signature.SignerCertificate -ne $null) {
+            Write-Output "Certificate found: $($signature.SignerCertificate.Subject). Adding to TrustedPublisher store."
+
+            # Add the certificate to the TrustedPublisher store
+            $trustedPublisherStore = Get-Item -Path Cert:\LocalMachine\TrustedPublisher
+            $trustedPublisherStore.Open("ReadWrite")
+            $trustedPublisherStore.Add($signature.SignerCertificate)
+            $trustedPublisherStore.Close()
+
+            Write-Output "Certificate added to TrustedPublisher store successfully."
+        } else {
+            Write-Output "No valid certificate found in $($driverCatFile.FullName)."
+            exit 1
+        }
+    } else {
+        Write-Output "No catalog (.cat) file found for the driver. Cannot extract certificate."
+        exit 1
+    }
+} else {
+    Write-Output "Certificate management install is disabled. Skipping certificate pre-authorization."
+}
+
+
 try {
     # Add the printer driver
     pnputil.exe /add-driver $DriverPath /install

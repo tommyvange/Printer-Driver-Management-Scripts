@@ -58,6 +58,39 @@ if ($Logging) {
 }
 
 try {
+    # Remove the certificate if CertificateManagementUninstall is enabled
+    if ($config.CertificateManagementUninstall -eq $true) {
+        Write-Output "Certificate management uninstall is enabled. Removing the associated certificate."
+
+        # Locate the driver catalog file (.cat)
+        $driverCatFile = Get-ChildItem -Path (Split-Path -Parent $DriverPath) -Filter "*.cat" | Select-Object -First 1
+
+        if ($null -ne $driverCatFile) {
+            Write-Output "Found catalog file: $($driverCatFile.FullName). Extracting certificate."
+
+            # Extract the certificate from the catalog file
+            $signature = Get-AuthenticodeSignature -FilePath $driverCatFile.FullName
+
+            if ($signature.SignerCertificate -ne $null) {
+                Write-Output "Certificate found: $($signature.SignerCertificate.Subject). Removing from TrustedPublisher store."
+
+                # Remove the certificate from the TrustedPublisher store
+                $trustedPublisherStore = Get-Item -Path Cert:\LocalMachine\TrustedPublisher
+                $trustedPublisherStore.Open("ReadWrite")
+                $trustedPublisherStore.Remove($signature.SignerCertificate)
+                $trustedPublisherStore.Close()
+
+                Write-Output "Certificate removed from TrustedPublisher store successfully."
+            } else {
+                Write-Output "No valid certificate found in $($driverCatFile.FullName)."
+            }
+        } else {
+            Write-Output "No catalog (.cat) file found for the driver. Cannot remove certificate."
+        }
+    } else {
+        Write-Output "Certificate management uninstall is disabled. Skipping certificate removal."
+    }
+
     # Uninstall the printer driver using pnputil
     pnputil.exe /delete-driver $DriverPath /force
     if ($LASTEXITCODE -ne 0) {

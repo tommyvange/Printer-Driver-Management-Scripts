@@ -1,5 +1,7 @@
 {
-    "DriverPath": "./driver/etc/CNP60MA64.INF",
-    "DriverName": "Canon Generic Plus PCL6",
-    "Logging": false
+    "DriverPath": "./driver/Zebra.inf",
+    "DriverName": "Zebra ZT230 (203 dpi)",
+    "Logging": false,
+	"CertificateManagementInstall": false,
+	"CertificateManagementUninstall": false
 }

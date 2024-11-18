@@ -1,3 +1,4 @@
+
 # Printer Driver Management Scripts
 
 These scripts are designed to install and uninstall printer drivers on Windows machines. They can read parameters from the command line, a configuration file (`config.json`), or use default values. If any required parameter is missing and cannot be resolved, the scripts will fail with an appropriate error message.
@@ -14,7 +15,9 @@ The scripts use a configuration file (`config.json`) to store default values for
 {
 	"DriverPath": "./driver/CNP60MA64.INF", 
 	"DriverName": "Canon Generic Plus PCL6", 
-	"Logging": false
+	"Logging": false,
+	"CertificateManagementInstall": false,
+	"CertificateManagementUninstall": false
 }
 ```
 
@@ -23,6 +26,12 @@ The scripts use a configuration file (`config.json`) to store default values for
 The `DriverPath` specified in the configuration file or command line is treated as a relative path from the location of the PowerShell script. This ensures that the scripts can locate the driver files correctly when deployed in different environments, such as through Intune.
 
 For example, if your script is located in `C:\Scripts` and your driver is located in `C:\Scripts\driver\etc\CNP60MA64.INF`, you would set the `DriverPath` to `.\driver\etc\CNP60MA64.INF`.
+
+### Certificate Management
+- The` CertificateManagementInstall` options allow the script to automatically install and trust a driver certificate before installing the driver. 
+- The` CertificateManagementUninstall` options allow the script to automatically uninstall and forget a driver certificate after uninstalling the driver.
+
+The certificate(s) is retrieved from all `.cat` files inside the `DriverPath` folder.
 
 ## Install Script
 
@@ -34,13 +43,14 @@ The install script adds a printer driver using the specified parameters.
 To run the add shortcut script, use the following command:
 
 ``` powershell
-.\install.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging]
+.\install.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging] [-CertificateManagementInstall]
 ```
 
 ### Parameters
 -   `DriverPath`: The path to the printer driver `.INF` file.
 -   `DriverName`: The name of the printer driver.
 -   [Optional] `Logging`: Enables transcript logging if set.
+-   [Optional] `CertificateManagementInstall`: Automatically install and trust a driver certificate before installing the driver. 
 
 ### Fallback to Configuration File
 If a parameter is not provided via the command line, the script will attempt to read it from the `config.json` file. If the parameter is still not available, the script will fail and provide an error message.
@@ -49,7 +59,7 @@ If a parameter is not provided via the command line, the script will attempt to 
 To specify values directly via the command:
 
 ``` powershell
-.\install.ps1 -DriverPath "./driver/CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" [-Logging]
+.\install.ps1 -DriverPath "./driver/CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" -Logging -CertificateManagementInstall
 ```
 
 To use the default values from the configuration file:
@@ -71,13 +81,14 @@ The uninstall script removes a specified printer driver using the specified para
 To run the remove shortcut script, use the following command:
 
 ``` powershell
-.\uninstall.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging]
+.\uninstall.ps1 -DriverPath "<DriverPath>" -DriverName "<DriverName>" [-Logging] [-CertificateManagementUninstall]
 ```
 
 ### Parameters
 -   `DriverPath`: The path to the printer driver `.INF` file.
 -   `DriverName`: The name of the printer driver.
 -   [Optional] `Logging`: Enables transcript logging if set.
+-   [Optional] `CertificateManagementUninstall`: Automatically uninstall and forget a driver certificate after uninstalling the driver.
 
 ### Fallback to Configuration File
 If a parameter is not provided via the command line, the script will attempt to read it from the `config.json` file. If the parameter is still not available, the script will fail and provide an error message.
@@ -86,7 +97,7 @@ If a parameter is not provided via the command line, the script will attempt to 
 To specify values directly via the command:
 
 ``` powershell
-.\uninstall.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" [-Logging]
+.\uninstall.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" -Logging -CertificateManagementUninstall
 ```
 
 To use the default values from the configuration file:
@@ -135,7 +146,7 @@ If a parameter is not provided via the command line, the script will attempt to 
 ### Example
 To specify values directly via the command:
 ``` powershell
-.\check.ps1 -DriverName "Canon Generic Plus" [-Logging]
+.\check.ps1 -DriverName "Canon Generic Plus" -Logging
 ``` 
 
 To use the default values from the configuration file:
@@ -183,7 +194,7 @@ Example log file paths:
 To enable logging via the command line:
 
 ``` powershell
-.\install.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" -Logging
+.\install.ps1 -DriverPath ".\driver\etc\CNP60MA64.INF" -DriverName "Canon Generic Plus PCL6" -Logging -CertificateManagementInstall
 ```
 
 Or by setting the `Logging` property in the configuration file:
@@ -191,7 +202,9 @@ Or by setting the `Logging` property in the configuration file:
 {
 	"DriverPath": "./driver/CNP60MA64.INF", 
 	"DriverName": "Canon Generic Plus PCL6", 
-	"Logging": true
+	"Logging": true,
+	"CertificateManagementInstall": false,
+	"CertificateManagementUninstall": false
 }
 ```
 ## Error Handling
