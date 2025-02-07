@@ -5,7 +5,7 @@ These scripts are designed to install and uninstall printer drivers on Windows m
 
 This repository is licensed under the **[GNU General Public License v3.0 (GPLv3)](LICENSE)**.
 
-Developed by **[Tommy Vange Rød](https://github.com/tommyvange)**.
+Created by **[Tommy Vange Rød](https://github.com/tommyvange)**. You can see the full list of credits [here](#credits).
 
 ## Configuration
 
@@ -218,6 +218,21 @@ All scripts include error handling to provide clear messages when parameters are
 ## Troubleshooting
 
 If you encounter any issues, ensure that all parameters are correctly specified and that the printer driver is available at the provided path. Check the error messages provided by the scripts for further details on what might have gone wrong.
+
+## Credits
+
+### Author
+
+<!-- readme: tommyvange -start -->
+<!-- readme: tommyvange -end -->
+
+You can find more of my work on my [GitHub profile](https://github.com/tommyvange) or connect with me on [LinkedIn](https://www.linkedin.com/in/tommyvange/).
+
+### Contributors
+Huge thanks to everyone who dedicates their valuable time to improving, perfecting, and supporting this project!
+
+<!-- readme: contributors,tommyvange/- -start -->
+<!-- readme: contributors,tommyvange/- -end -->
 
 # GNU General Public License v3.0 (GPLv3)
 
